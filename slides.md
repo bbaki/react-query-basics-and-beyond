@@ -418,6 +418,30 @@ https://tanstack.com/query/latest/docs/framework/react/guides/optimistic-updates
 
 ---
 
+## 11. Bonus: don't use onSuccess / onError in useQuery
+
+_Only applicable to react-query v4_
+
+```jsx
+export function useTodos() {
+  const [todoCount, setTodoCount] = React.useState(0);
+  const { data: todos } = useQuery({
+    queryKey: ["todos", "list"],
+    queryFn: fetchTodos,
+    //😭 please don't
+    onSuccess: (data) => {
+      setTodoCount(data.length);
+    },
+  });
+
+  return { todos, todoCount };
+}
+```
+
+https://tkdodo.eu/blog/breaking-react-querys-api-on-purpose
+
+---
+
 <div style="
   display: flex;
   justify-content: center;
@@ -425,3 +449,11 @@ https://tanstack.com/query/latest/docs/framework/react/guides/optimistic-updates
 ">
   <img src="thats-all-folks.png" alt="That's all folks" />
 </div>
+<p style="
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0;
+">
+    https://github.com/bbaki/react-query-basics-and-beyond
+</p>
